@@ -1,2 +1,2 @@
-chapter1.txt
-
+ch1-how-to-build.txt
+ch2-getting-started.txt

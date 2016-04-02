@@ -1,0 +1,28 @@
+# How to build Apache Flink
+
+NOTE: You many want to start from reading [Build Flink from Source](https://ci.apache.org/projects/flink/flink-docs-master/setup/building.html).
+
+The following command builds Flink for Scala **2.11.7** and Hadoop **2.7.2**.
+
+NOTE: It is not possible to build Flink with Scala 2.11.8.
+
+```
+$ pwd
+/Users/jacek/dev/oss/flink
+
+$ ./tools/change-scala-version.sh 2.11
+sed_i 's/\(artifactId>flink.*'_2\.10'\)<\/artifactId>/\1'_2\.11'<\/artifactId>/g' {}
+tools/../flink-annotations/pom.xml
+...
+tools/../flink-yarn-tests/pom.xml
+
+$ mvn clean install -DskipTests -Dhadoop.version=2.7.2 -Dscala.version=2.11.7
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 06:53 min
+[INFO] Finished at: 2016-04-02T08:31:41-04:00
+[INFO] Final Memory: 207M/1245M
+[INFO] ------------------------------------------------------------------------
+```

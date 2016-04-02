@@ -1,0 +1,38 @@
+# How to get started with Flink
+
+NOTE: You many want to start from reading [Quickstart: Setup](https://ci.apache.org/projects/flink/flink-docs-master/quickstart/setup_quickstart.html).
+
+After you have built your own local Flink distribution or downloaded it from the web, you start Flink using the following command:
+
+```
+$ pwd
+/Users/jacek/dev/oss/flink
+
+$ ./build-target/bin/start-local.sh
+Starting jobmanager daemon on host japila.local.
+```
+
+Visit [Apache Flink Dashboard](http://localhost:8081/#/overview) (aka _JobManager’s web frontend_).
+
+## SocketWindowWordCount Example
+
+Start `nc` in a terminal.
+
+```
+$ nc -l 9000
+```
+
+Open another terminal and `run SocketWindowWordCount`.
+
+```
+$ ./build-target/bin/flink run ./flink-examples/flink-examples-streaming/target/SocketWindowWordCount.jar \
+  --hostname localhost \
+  --port 9000
+04/02/2016 08:39:29	Job execution switched to status RUNNING.
+04/02/2016 08:39:29	Source: Socket Stream -> Flat Map(1/1) switched to SCHEDULED
+04/02/2016 08:39:29	Source: Socket Stream -> Flat Map(1/1) switched to DEPLOYING
+04/02/2016 08:39:29	Fast SlidingProcessingTimeWindows(5000, 1000) of WindowedStream.main(SocketWindowWordCount.java:79) -> Sink: Unnamed(1/1) switched to SCHEDULED
+04/02/2016 08:39:29	Fast SlidingProcessingTimeWindows(5000, 1000) of WindowedStream.main(SocketWindowWordCount.java:79) -> Sink: Unnamed(1/1) switched to DEPLOYING
+04/02/2016 08:39:29	Source: Socket Stream -> Flat Map(1/1) switched to RUNNING
+04/02/2016 08:39:29	Fast SlidingProcessingTimeWindows(5000, 1000) of WindowedStream.main(SocketWindowWordCount.java:79) -> Sink: Unnamed(1/1) switched to RUNNING
+```
